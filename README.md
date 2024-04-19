@@ -1,7 +1,7 @@
 debian 12 (default- 20 GiB VHD)
 ## 1. Select install
 Save time and resources for by not using GUI 
-##2. Select English for system language
+## 2. Select English for system language
 Adjust for personal spoken language
 ##3. Select Pacific/PST for timezone
 Adjust selection for timezone/location
