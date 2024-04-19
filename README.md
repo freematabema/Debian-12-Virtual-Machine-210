@@ -17,13 +17,13 @@ Needed to access root commands and make major changes to the system
 Enter real name, then choose a name to be identified by on the system (try to make it memorable)
 ## 9. Select system clock region
 This will help identify the timezone for the correct time in the operating system
-## 10. Partition disks (part 1) for storage, selecting Guided - Use entire disk and setup LVM
+## 11 Partition disks (part 1) for storage, selecting Guided - Use entire disk and setup LVM
 LVM allows you to expand the storage pool after installation without major disruption
-## 11. Partition disks (part 2) select virtual disk 1 (vda)
+## 11.2 Partition disks (part 2) select virtual disk 1 (vda)
 vda is the virtual disk wwe made before spinning up the installer
-## 12. Partition disks (part 3) select all files in one partition
+## 11.3 Partition disks (part 3) select all files in one partition
 this will format the disk, erasing (but not overwriting) all previous data. Select yes when prompted if sure to write changes to disk
-## 13. Partition disks (part 4) select size for guided partitioning
+## 11.4 Partition disks (part 4) select size for guided partitioning
 This is essentially the initial disk size; can be expanded later
 ## 14. Skip scanning additional disks
 ## 15. Configure the package manager, choose region and mirror and skip proxy setup for the time being
