@@ -1,16 +1,17 @@
-## Debian 12 (default settings will suffice on the side of virt-manager for now - 20 GiB VHD)
+# Debian 12 (default settings will suffice on the side of virt-manager for now - 20 GiB VHD)
 
+## Part 1: Initial Install
 
 ## 1. Select install
   Save time and resources for by not using a GUI (for now) 
 ## 2. Select English for system language
   Adjust for personal spoken language
-## 3. Select Pacific/PST for timezone
-  Adjust selection for timezone/location
-## 4. Select American English for keymap
-  Adjust for regional keyboard as necessary
+## 3. Select timezone
+  Adjust for timezone/location (we'll be using PST/Pacific Standard Time for this tutorial)
+## 4. Select keymap according to your region
+  In this case we'll be using ``American English``
 ## 5. Select hostname for system
-  Use tux as default, this will identify the system on the network
+  This will identify the system on the network (We'll be using ``tux`` for this example)
 ## 6. Choose domain name 
   Optional for end-users
 ## 7. Choose root password
@@ -27,6 +28,7 @@
     this will format the disk, erasing (but not overwriting) all previous data. Select yes when prompted if sure to write changes to disk
 ## 11.4 Partition disks (part 4) select size for guided partitioning
     This is essentially the initial disk size; can be expanded later
+    
 ## 12. Skip scanning additional disks
 ## 13. Configure the package manager, choose region and mirror and skip proxy setup for the time being
   This allows you to download applications, libraries and drivers from the terminal on demand  
@@ -36,4 +38,25 @@
     openssh | Apache Web Server
 ## 15. Allow the installation to run it's course, and then allow it to reboot when prompted
 
+## Part 2: Post-install
 
+## 1. Add additional users
+  This step creates additional user profiles 
+## 1.1 BECOME ROOT!
+  We need to become root temporarily in order to add the new users. Various commands can help accomplish this goal, but for this tutorial, we'll be using ``su -``
+## 1.2 Add the new user to the system (we'll be using the example username ``tux2``)
+  Run ``adduser tux2``
+## 1.3 Give the new user a password for security purposes
+  Run the command ``passwd tux2`` and enter your chosen password twice in the prompt that appears; once to set the new passwoed, and again to confirm
+## 1.4 Finally, if necessary, add the new user to the ``sudoers`` group
+  Enter the command  ``usermod -aG sudo tux2``
+  
+## 2. Enable the serial console via systemd for remote access
+  This step will allow you to connect to your systen headlessly (without access to a monitor via another computer)
+## 2.1 Enable the getty service for the chosen interface to run at boot (this example will utilize the default serial port)
+  Run the command ``systemctl enable getty@ttys0.service``
+## 2.2 Start the service for the current session via systemd
+  Run ``systemctl start getty@ttys0.service``
+## 3. Create two new directories in the root (you may need to complete these commands as superuser)
+  ``sudo mkdir /bin``
+  ``sudo mkdir /inclass``
