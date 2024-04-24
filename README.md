@@ -1,7 +1,10 @@
-# Debian 12 (default settings will suffice on the side of virt-manager for now - 20 GiB VHD)
+# Debian 12 VM Install Guide
 
-## Part 1: Initial Install
-
+# Part 1: VM Setup
+## 1. Open Virtual Machine Manager via the terminal emulator
+In your terminal, run ``virt-manager``
+## 2. Once the window has opened, begin the install process
+# Part 2: Initial OS Install/Setup
 ## 1. Select install
   Save time and resources for by not using a GUI (for now) 
 ## 2. Select English for system language
@@ -38,7 +41,7 @@
     openssh | Apache Web Server
 ## 15. Allow the installation to run it's course, and then allow it to reboot when prompted
 
-## Part 2: Post-install
+# Part 3: Post-install
 
 ## 1. Add additional users
   This step creates additional user profiles 
@@ -51,12 +54,23 @@
 ## 1.4 Finally, if necessary, add the new user to the ``sudoers`` group
   Enter the command  ``usermod -aG sudo tux2``
   
-## 2. Enable the serial console via systemd for remote access
+## 2. Change Apache default homepage 
+  This will cause a different page to be displayed when accessing the web server's homepage
+## 2.1 Remove the initial index.html
+  Execute the command ``rm /var/www/html/index.html`` to remove the default .html file provided with the operating system
+## 2.2 Replace the removed file with your own .html file (We'll use ``replaceme.html`` as an example, it is stored on the root of the drive in this case)
+  Download a webpage in .html format or otherwise source a .html file to use as your homepage. Once you have the file, execute ``sudo mv /replaceme.html /var/www/html/``
+
+## 3. Enable the serial console via systemd for remote access
   This step will allow you to connect to your systen headlessly (without access to a monitor via another computer)
-## 2.1 Enable the getty service for the chosen interface to run at boot (this example will utilize the default serial port)
+## 3.1 Enable the getty service for the chosen interface to run at boot (this example will utilize the default serial port)
   Run the command ``systemctl enable getty@ttys0.service``
-## 2.2 Start the service for the current session via systemd
+## 3.2 Start the service for the current session via systemd
   Run ``systemctl start getty@ttys0.service``
-## 3. Create two new directories in the root (you may need to complete these commands as superuser)
-  ``sudo mkdir /bin``
-  ``sudo mkdir /inclass``
+## 3.3 Reload daemons
+  Run ``systemctl reload-daemons``
+## 4. Create two new directories in the root (you may need to complete these commands as superuser)
+  Execute ``sudo mkdir /bin``
+  and ``sudo mkdir /inclass``
+
+  
