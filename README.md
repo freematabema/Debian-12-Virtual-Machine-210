@@ -99,9 +99,18 @@ BCRC
 ```
 ## 6. Expand Volume Pool
 ## 6.1 Open Virt-Manager and choose the Virtual Machine
-  Open the Virt-Manager interface on the host OS and select the VM we've been using, and select the light bulb symbol to edit it
+Open the Virt-Manager interface on the host OS and select the VM we've been using, and select the light bulb symbol to edit it
 ## 6.2 Select Add Hardware near the bottom of the window, and select Storage from the list that appears
 ## 6.3 Create the new disks
-  In the resulting menu, select ``Create a disk image for the virtual machine`` and set the size to 5 GiBs, and then click Finish
+In the resulting menu, select ``Create a disk image for the virtual machine`` and set the size to 5 GiBs, and then click Finish
 ## 6.4 Repeat the previous step until you have created a satisfactory number of virtual drives
-## 6.5
+## 6.5 We will now return to the Virtual Machine itself and begin the process of mounting our new drive(s)
+Start by running ``sudo pvcreate /dev/sdb /dev/sdc`` to create the physical volumes that will make the volume pool/group
+## 6.6 Create a volume group from the previously created physical volumes, in this case called tuxvg
+Run ``vgcreate tuxvg /dev/sdb /dev/sdc/``
+## 6.7 We then need to make a logical volume utilizing the new volume group
+Run ``lvcreate -n tuxlv -L 10G tuxvg`` to create a 10 gigabyte logical volume named ``tuxlv``
+## 6.8 Finally, we need to format our new logical volume into usuable storage
+Run ``mkfs.ext4 /dev/tuxvg/tuxlv``
+
+# What now? Up to you, my dear end-user, up to you.
