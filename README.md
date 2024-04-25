@@ -24,7 +24,8 @@ Select your .ISO or physical media containinng the Operating System of choice, a
   Enter real name, then choose a name to be identified by on the system (try to make it memorable)
 ## 9. Select system clock region
   This will help identify the timezone for the correct time in the operating system
-## 11 Partition disks (part 1) for storage, selecting Guided - Use entire disk and setup LVM
+## 11. Partition the disk to support Logical Volume Management (See Post-Install - Step 6 for steps on expanding the pool)
+## 11.1 Partition disks (part 1) for storage, selecting Guided - Use entire disk and setup LVM
   LVM allows you to expand the storage pool after installation without major disruption
 ## 11.2 Partition disks (part 2) select virtual disk 1 (vda)
     vda is the virtual disk wwe made before spinning up the installer
@@ -73,10 +74,11 @@ Select your .ISO or physical media containinng the Operating System of choice, a
 ## 4.1 Execute ``sudo mkdir /bin`` and ``sudo mkdir /inclass``
 ## 4.2 Execute the following: ``echo export PATH="/bin:$PATH > .bashrc `` and ``echo export PATH="/inclass:$PATH > .bashrc``
 ## 4.3 Check to make sure the changes applied correctly by running ``echo $PATH``
-## 5. Get a lil' bit func-y with it. Create some fun-ctions that will help automate various aspects of the system
-## 5.1 Execute the following command to create a function called ``FUN`` that calculates a mathematic equation and displays the resulting text in markdown:
+## 5. Get a lil' bit func-y with it. 
+  Create some fun-ctions that will help automate various aspects of the system
+## 5.1 Execute the following command to create a function called ``FUN`` that calculates a mathematic equation and displays the resulting text in markdown when executed:
 
-``cat - > ~/.funcs << "FUN"
+``` cat - > ~/.funcs << "FUN"
 whdr() {
 echo '<!DOCTYPE html><head><title>bash web</title></head><body><pre>'
 
@@ -88,8 +90,18 @@ echo '</pre></body></html>'
 calcit() {
     printf "%s\n" "$@" | bc -lq ~/.bcrc  
 }
-FUN``
 
-``cat - > ~/.bcrc << BCRC
+FUN
+
+cat - > ~/.bcrc << BCRC
 scale=2
-BCRC``
+BCRC
+```
+## 6. Expand Volume Pool
+## 6.1 Open Virt-Manager and choose the Virtual Machine
+  Open the Virt-Manager interface on the host OS and select the VM we've been using, and select the light bulb symbol to edit it
+## 6.2 Select Add Hardware near the bottom of the window, and select Storage from the list that appears
+## 6.3 Create the new disks
+  In the resulting menu, select ``Create a disk image for the virtual machine`` and set the size to 5 GiBs, and then click Finish
+## 6.4 Repeat the previous step until you have created a satisfactory number of virtual drives
+## 6.5
