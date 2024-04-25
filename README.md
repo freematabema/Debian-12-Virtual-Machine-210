@@ -3,7 +3,8 @@
 # Part 1: VM Setup
 ## 1. Open Virtual Machine Manager via the terminal emulator
 In your terminal, run ``virt-manager``
-## 2. Once the window has opened, begin the install process
+## 2. Once the window has opened, begin the install process by selecting the button in the upper left corner of the window
+Select your .ISO or physical media containinng the Operating System of choice, and then use the default settings provided by the program until you reach the live install screen
 # Part 2: Initial OS Install/Setup
 ## 1. Select install
   Save time and resources for by not using a GUI (for now) 
@@ -31,7 +32,6 @@ In your terminal, run ``virt-manager``
     this will format the disk, erasing (but not overwriting) all previous data. Select yes when prompted if sure to write changes to disk
 ## 11.4 Partition disks (part 4) select size for guided partitioning
     This is essentially the initial disk size; can be expanded later
-    
 ## 12. Skip scanning additional disks
 ## 13. Configure the package manager, choose region and mirror and skip proxy setup for the time being
   This allows you to download applications, libraries and drivers from the terminal on demand  
@@ -69,8 +69,27 @@ In your terminal, run ``virt-manager``
   Run ``systemctl start getty@ttys0.service``
 ## 3.3 Reload daemons
   Run ``systemctl reload-daemons``
-## 4. Create two new directories in the root (you may need to complete these commands as superuser)
-  Execute ``sudo mkdir /bin``
-  and ``sudo mkdir /inclass``
+## 4. Create two new directories in the root and add them to the PATH for easy access (you may need to complete these commands as superuser)
+## 4.1 Execute ``sudo mkdir /bin`` and ``sudo mkdir /inclass``
+## 4.2 Execute the following: ``echo export PATH="/bin:$PATH > .bashrc `` and ``echo export PATH="/inclass:$PATH > .bashrc``
+## 4.3 Check to make sure the changes applied correctly by running ``echo $PATH``
+## 5. Get a lil' bit func-y with it. Create some fun-ctions that will help automate various aspects of the system
+## 5.1 Execute the following command to create a function called ``FUN`` that calculates a mathematic equation and displays the resulting text in markdown:
 
-  
+``cat - > ~/.funcs << "FUN"
+whdr() {
+echo '<!DOCTYPE html><head><title>bash web</title></head><body><pre>'
+
+}
+wftr() {
+echo '</pre></body></html>'
+
+}
+calcit() {
+    printf "%s\n" "$@" | bc -lq ~/.bcrc  
+}
+FUN``
+
+``cat - > ~/.bcrc << BCRC
+scale=2
+BCRC``
